@@ -17,9 +17,11 @@ int high = 255;
 int low = 4;
 
 Mat src, src_gray, dst;
+
 void inRangeDemo( int, void* );
 void Low (int, void* );
 void High (int, void* );
+
 
 int main( int argc, char** argv )
 {
@@ -29,13 +31,19 @@ int main( int argc, char** argv )
     exit(0);
   }
   src = imread( *++argv, 1 );
+
   cvtColor( src, src_gray, COLOR_BGR2GRAY );
 
   namedWindow( "Image", WINDOW_AUTOSIZE );
   namedWindow( "Seuillage", WINDOW_AUTOSIZE );
  
-  createTrackbar( "LOW", "Image", &low, 255, Low );
-  createTrackbar( "HIGH", "Image", &high, 255, High );
+  createTrackbar( "LOW",
+                  "Image", &low,
+                  255, Low );
+
+  createTrackbar( "HIGH",
+                  "Image", &high,
+                  255, High );
   setTrackbarMax ("LOW", "Image", 255);
   setTrackbarMin ("LOW", "Image", 0);
   setTrackbarPos ("LOW", "Image", 0);
@@ -45,6 +53,7 @@ int main( int argc, char** argv )
   imshow( "Image", src );
   inRangeDemo( 0, 0 );
   waitKey();
+
 }
 
 void Low (int, void* )

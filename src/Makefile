@@ -129,6 +129,43 @@ code_photo/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/code_photo.dir/build.make CMakeFiles/code_photo.dir/build
 .PHONY : code_photo/fast
 
+#=============================================================================
+# Target rules for targets named HoughCircle
+
+# Build rule for target.
+HoughCircle: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 HoughCircle
+.PHONY : HoughCircle
+
+# fast build rule for target.
+HoughCircle/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HoughCircle.dir/build.make CMakeFiles/HoughCircle.dir/build
+.PHONY : HoughCircle/fast
+
+HoughCircle.o: HoughCircle.cpp.o
+.PHONY : HoughCircle.o
+
+# target to build an object file
+HoughCircle.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HoughCircle.dir/build.make CMakeFiles/HoughCircle.dir/HoughCircle.cpp.o
+.PHONY : HoughCircle.cpp.o
+
+HoughCircle.i: HoughCircle.cpp.i
+.PHONY : HoughCircle.i
+
+# target to preprocess a source file
+HoughCircle.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HoughCircle.dir/build.make CMakeFiles/HoughCircle.dir/HoughCircle.cpp.i
+.PHONY : HoughCircle.cpp.i
+
+HoughCircle.s: HoughCircle.cpp.s
+.PHONY : HoughCircle.s
+
+# target to generate assembly for a file
+HoughCircle.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HoughCircle.dir/build.make CMakeFiles/HoughCircle.dir/HoughCircle.cpp.s
+.PHONY : HoughCircle.cpp.s
+
 code_photo.o: code_photo.cpp.o
 .PHONY : code_photo.o
 
@@ -161,7 +198,11 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... HoughCircle"
 	@echo "... code_photo"
+	@echo "... HoughCircle.o"
+	@echo "... HoughCircle.i"
+	@echo "... HoughCircle.s"
 	@echo "... code_photo.o"
 	@echo "... code_photo.i"
 	@echo "... code_photo.s"

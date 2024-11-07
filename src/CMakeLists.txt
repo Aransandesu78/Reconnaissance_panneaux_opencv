@@ -13,3 +13,7 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 # Ajouter un deuxième exécutable pour InRange.cpp
 add_executable(code_photo code_photo.cpp)
 target_link_libraries(code_photo ${OpenCV_LIBS})
+
+# Ajouter un deuxième exécutable pour HoughCircle.cpp
+add_executable(HoughCircle HoughCircle.cpp)
+target_link_libraries(code_photo ${OpenCV_LIBS})

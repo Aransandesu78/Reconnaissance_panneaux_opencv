@@ -1,3 +1,4 @@
 /home/alain/Documents/Opencv/src/CMakeFiles/code_photo.dir
+/home/alain/Documents/Opencv/src/CMakeFiles/HoughCircle.dir
 /home/alain/Documents/Opencv/src/CMakeFiles/edit_cache.dir
 /home/alain/Documents/Opencv/src/CMakeFiles/rebuild_cache.dir
