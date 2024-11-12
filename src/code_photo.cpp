@@ -5,50 +5,51 @@
 
 using namespace cv;
 
-const String windowName = "Cercle detecte";
+const String windowName = "Panneaux detectes";
 int cannyThresholdset = 121;
 int accumulatorset = 50; 
 
-void preprocessImage(const Mat &input, Mat &output) 
+
+void preprocessImage(Mat &input, Mat &output) 
 {
     cvtColor(input, output, COLOR_BGR2GRAY);
     GaussianBlur(output, output, Size(9, 9), 2, 2);
 }
 
 
-void hsvprocessImage(const Mat &input, Mat &output, Mat &graymat)
+void hsvprocessImage(std::vector<Vec3f> &cercles, Mat &imsrc, Mat &output)
 {
-    Mat hsvImage, whiteMask;
-    cvtColor(input, hsvImage, COLOR_BGR2HSV);
-    inRange(hsvImage, Scalar(0, 0, 200), Scalar(180, 50, 255), whiteMask);
-    bitwise_and(graymat, whiteMask, output);
+    Mat hsvImage;
+    cvtColor(imsrc, hsvImage, COLOR_BGR2HSV);
+    inRange(hsvImage, Scalar(0, 0, 190), Scalar(179, 46, 255), output);
+    imshow(windowName, output);
 }
 
-
-void detectCircles(const Mat &grayImage, const Mat& src_display, std::vector<Vec3f>& circles, int cannyThreshold, int accumulatorThreshold) 
+// Detecte les cercles et renvoie sur forme d'un tableau dynamique de type Vec3f
+std::vector<Vec3f> detectCircles(Mat &grayImage, Mat &src_display, std::vector<Vec3f> &circles, int cannyThreshold, int accumulatorThreshold) 
 {
-    //Detecte les cercles
+    // Transformée de Hough pour détecter les cercles de l'image sélectionnée 
     HoughCircles(grayImage, circles, HOUGH_GRADIENT, 1, grayImage.rows/8, cannyThreshold, accumulatorThreshold, 0, 0 );
 
-    Mat display = src_display.clone();
-    for( size_t i = 0; i < circles.size(); i++ )
+    // Parcours la liste des circles pour les afficher sur l'image
+    for(size_t i = 0; i < circles.size(); i++)
     {
         Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
         int radius = cvRound(circles[i][2]);
         //Centre de cercle
-        circle(display, center, 3, Scalar(0,255,0), -1, 8, 0 );
+        circle(src_display, center, 3, Scalar(0,255,0), -1, 8, 0);
         //Cercle
-        circle(display, center, radius, Scalar(0,0,255), 3, 8, 0 );
+        circle(src_display, center, radius, Scalar(0,0,255), 3, 8, 0);
     }
 
-    imshow(windowName, display);
+    return circles;
 }
 
 
 int main(int argc, char** argv) 
 {
     // Matrice qui contient les pixels traités d'une image 
-    Mat image_src, gray, result;
+    Mat image_src, gray, image_out;
     // Création d'un vector à 3D 
     std::vector<Vec3f> circles;
 
@@ -70,10 +71,10 @@ int main(int argc, char** argv)
 
     // L'objet Mat gray qui va contenir l'image en nuance de gris
     preprocessImage(image_src, gray);
-    // Filtrage HSV pour isoler les panneaux de limitations de vitesses
-    // hsvprocessImage(image_src, result, gray);
     // Détection de cercles
     detectCircles(gray, image_src, circles, cannyThresholdset, accumulatorset);
+    // Filtrage HSV pour isoler les panneaux de limitations de vitesses
+    hsvprocessImage(circles, image_src, image_out);
 
     waitKey(0);
     return 0;
